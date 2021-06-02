@@ -1,27 +1,30 @@
 {
-    "name": "node-jwt-authentication-api",
-    "version": "1.0.0",
-    "description": "NodeJS JWT Authentication API",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/cornflourblue/node-jwt-authentication-api.git"
-    },
-    "scripts": {
-        "start": "node main.js",
-        "start:dev": "nodemon main.js"
-    },
-    "dependencies": {
-        "body-parser": "^1.19.0",
-        "cors": "^2.8.5",
-        "express": "^4.17.1",
-        "express-jwt": "^6.0.0",
-        "express-validator": "^6.11.1",
-        "jsonwebtoken": "^8.5.1",
-        "mariadb": "^2.5.3",
-        "rootpath": "^0.1.2"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.4"
-    }
+  "name": "surveybros",
+  "version": "1.0.0",
+  "description": "Server logic for Survey Bros app",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "mariadb": "^2.5.3"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express-jwt": "^6.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raresChelariu/SurveyBrosBackend.git"
+  },
+  "author": "raresChelariu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raresChelariu/SurveyBrosBackend/issues"
+  },
+  "homepage": "https://github.com/raresChelariu/SurveyBrosBackend#readme"
 }
