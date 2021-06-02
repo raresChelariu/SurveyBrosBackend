@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "d4add3c9-be35-49b3-96c1-23418cda4b82",
+		"name": "Survey Bros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate account",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"ionpop@gmail.com\",\r\n    \"pass\" : \"pass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SB-ACCOUNTS}}/authenticate",
+					"host": [
+						"{{SB-ACCOUNTS}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ionpop@gmail.com\",\r\n    \"pass\": \"pass123\",\r\n    \"first_name\": \"Ion\",\r\n    \"last_name\": \"Pop\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SB-ACCOUNTS}}/register",
+					"host": [
+						"{{SB-ACCOUNTS}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{SB-JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SB-ACCOUNTS}}",
+					"host": [
+						"{{SB-ACCOUNTS}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SB-HOME",
+			"value": "localhost:4000"
+		},
+		{
+			"key": "SB-ACCOUNTS",
+			"value": "{{SB-HOME}}/accounts"
+		},
+		{
+			"key": "SB-JWT",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYyMjYzMjYyNiwiZXhwIjoxNjIzMjM3NDI2fQ.fvu_-gU18hntyYV_P2FZWBhrEtB_RvATUo4TTUljWEQ"
+		}
+	]
+}

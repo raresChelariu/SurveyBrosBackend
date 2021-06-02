@@ -54,8 +54,8 @@ create table if not exists Account (
     email varchar(128) unique not null, # self explainatory
     pass  varchar(256) not null,        # same
 
-    first_name varchar(128),            # as
-    last_name  varchar(64),             # above
+    first_name varchar(128) not null,            # as
+    last_name  varchar(64) not null,             # above
 
     date_created datetime default now() not null,   # auto handled
     date_modified datetime default now() not null,  # auto handled
@@ -65,10 +65,10 @@ create table if not exists Account (
     email_confirmed boolean not null default false,     # self explainatory
 
     password_change_requested boolean not null default false, # if user requested pass reset OUTSIDE the account, flag should be turned on
-    password_change_request_date datetime not null default CURRENT_TIMESTAMP,           # if user requested pass reset OUTSIDE account, save time. Resets should be invalidated after a while
+    password_change_request_date datetime not null default now(),           # if user requested pass reset OUTSIDE account, save time. Resets should be invalidated after a while
 
     is_locked_out boolean not null default false,             # set to True by Account_Lockdown_Log_Invalid_Auth, invalidate through Account_Lockdown_Try_Remove
-    lockdown_start datetime not null                          # set to date by Account_Lockdown_Log_Invalid_Auth, invalidate through Account_Lockdown_Try_Remove
+    lockdown_start datetime not null default now()                         # set to date by Account_Lockdown_Log_Invalid_Auth, invalidate through Account_Lockdown_Try_Remove
 );
 
 /**
