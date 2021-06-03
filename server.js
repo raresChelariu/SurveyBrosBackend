@@ -14,6 +14,7 @@ app.use(cors())
 app.use(jwt())
 // api routes
 app.use('/accounts', require('./Controllers/AccountController'))
+app.use('/surveys', require('./Controllers/SurveyController'))
 
 // global error handler
 app.use(errorHandler);

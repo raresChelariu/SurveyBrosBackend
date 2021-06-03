@@ -6,83 +6,153 @@
 	},
 	"item": [
 		{
-			"name": "Authenticate account",
-			"request": {
-				"auth": {
-					"type": "bearer"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\" : \"ionpop@gmail.com\",\r\n    \"pass\" : \"pass123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Account",
+			"item": [
+				{
+					"name": "Register account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ionpop@gmail.com\",\r\n    \"pass\": \"pass123\",\r\n    \"first_name\": \"Ion\",\r\n    \"last_name\": \"Pop\",\r\n    \"subscription_type\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SB-ACCOUNTS}}/register",
+							"host": [
+								"{{SB-ACCOUNTS}}"
+							],
+							"path": [
+								"register"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{SB-ACCOUNTS}}/authenticate",
-					"host": [
-						"{{SB-ACCOUNTS}}"
-					],
-					"path": [
-						"authenticate"
-					]
+				{
+					"name": "Authenticate account",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ionpop@gmail.com\",\r\n    \"pass\" : \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SB-ACCOUNTS}}/authenticate",
+							"host": [
+								"{{SB-ACCOUNTS}}"
+							],
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{SB-JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SB-ACCOUNTS}}",
+							"host": [
+								"{{SB-ACCOUNTS}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Register account",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"ionpop@gmail.com\",\r\n    \"pass\": \"pass123\",\r\n    \"first_name\": \"Ion\",\r\n    \"last_name\": \"Pop\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Survey",
+			"item": [
+				{
+					"name": "Get survey with questions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{SB-JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SB-SURVEYS}}/2",
+							"host": [
+								"{{SB-SURVEYS}}"
+							],
+							"path": [
+								"2"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{SB-ACCOUNTS}}/register",
-					"host": [
-						"{{SB-ACCOUNTS}}"
-					],
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get all users",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{SB-JWT}}",
-							"type": "string"
+				{
+					"name": "Add survey",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{SB-JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 1,\r\n    \"survey_title\": \"Great survey\",\r\n    \"survey_questions\": [\r\n        {\r\n            \"question_text\": \"Are you a fantastic coder?\",\r\n            \"question_type\": \"text\",\r\n            \"option_names\": \"\"\r\n        },\r\n        {\r\n            \"question_text\": \"Are you boring?\",\r\n            \"question_type\": \"yesno\",\r\n            \"option_names\": \"\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SB-SURVEYS}}",
+							"host": [
+								"{{SB-SURVEYS}}"
+							]
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{SB-ACCOUNTS}}",
-					"host": [
-						"{{SB-ACCOUNTS}}"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
@@ -117,6 +187,10 @@
 		{
 			"key": "SB-JWT",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTYyMjYzMjYyNiwiZXhwIjoxNjIzMjM3NDI2fQ.fvu_-gU18hntyYV_P2FZWBhrEtB_RvATUo4TTUljWEQ"
+		},
+		{
+			"key": "SB-SURVEYS",
+			"value": "{{SB-HOME}}/surveys"
 		}
 	]
 }

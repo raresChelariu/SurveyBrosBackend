@@ -1,4 +1,3 @@
-const DBTableNames = require("./DBTableNames")
 const GenericRepository = require("./GenericRepository")
 const PredefinedResponses = require("../PredefinedResponses")
 const SubRepository = require("../Repositories/SubRepository")
@@ -29,8 +28,8 @@ class SurveyRepository extends GenericRepository {
     }
 
     static async CreateSurvey({user_id, survey_title, survey_questions}) {
-        let sub_id = SubRepository.GetSubIDByUserId(user_id)
-        let isValidSub = SubRepository.CheckActiveSubBySubId(sub_id)
+        let sub_id = await SubRepository.GetSubIDByUserId(user_id)
+        let isValidSub = await SubRepository.CheckActiveSubBySubId(sub_id)
         if (false === isValidSub) {
             throw PredefinedResponses.ERRORS.INVALID_SUBSCRIPTION_ID
         }
@@ -43,10 +42,11 @@ class SurveyRepository extends GenericRepository {
             throw PredefinedResponses.ERRORS.FAILED_INSERT
         }
         let survey_id = result.insertId
+
         for (let i = 0; i < survey_questions.length; i++) {
             await this.AddQuestionToSurvey(survey_id, survey_questions[i])
         }
-        return survey_id
+        return {ID : survey_id}
     }
 
     static async AddQuestionToSurvey(survey_id, survey_question) {
@@ -59,7 +59,7 @@ class SurveyRepository extends GenericRepository {
         let question_id = surveyInsert.insertId
         let answerTypeID = await this.GetQuestionTypeIDbyQuestionTypeString(survey_question.question_type)
 
-        command = 'insert into Survey_Question_Answer_Type_Association (survey_question_ID, survey_question_answer_type_ID, option_names) values ($questionID, $answerTypeID $option_names)'
+        command = 'insert into Survey_Question_Answer_Type_Association (survey_question_ID, survey_question_answer_type_ID, option_names) values (?, ?, ?)'
         values = [question_id, answerTypeID, survey_question.option_names]
 
         await GenericRepository.Query(command, values)
@@ -93,7 +93,7 @@ class SurveyRepository extends GenericRepository {
         for (let i = 0; i < questions.length; i++) {
             let typeAssociation = await this.GetQuestionAssociationByQuestionID(questions[i].ID)
 
-            let questionTypeID = typeAssociation.survey_question_answer_type_id
+            let questionTypeID = typeAssociation.survey_question_answer_type_ID
             questions[i].survey_question_answer_type = await this.GetQuestionTypeStringByQuestionTypeId(questionTypeID)
 
             questions[i].option_names = typeAssociation.option_names
@@ -108,8 +108,8 @@ class SurveyRepository extends GenericRepository {
         if (0 === rows.length) {
             throw PredefinedResponses.ERRORS.INVALID_QUESTION_ID
         }
-        let {survey_question_answer_type_id, option_names} = rows[0]
-        return {survey_question_answer_type_id, option_names}
+        let {survey_question_answer_type_ID, option_names} = rows[0]
+        return {survey_question_answer_type_ID, option_names}
     }
 }
 

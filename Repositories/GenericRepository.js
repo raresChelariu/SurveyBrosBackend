@@ -1,5 +1,3 @@
-export
-
 const mariadb = require('mariadb')
 
 // noinspection SqlResolve
@@ -21,9 +19,9 @@ class GenericRepository {
         }
     }
 
-    static async Query(sqlCommand, values) {
+    static async Query(sqlCommand, sqlParamValues) {
         try {
-            return await GenericRepository.pool.query(sqlCommand, values)
+            return await GenericRepository.pool.query(sqlCommand, sqlParamValues)
         } catch (DbError) {
             throw DbError
         }
