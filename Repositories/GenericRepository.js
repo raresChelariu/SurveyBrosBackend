@@ -1,3 +1,5 @@
+export
+
 const mariadb = require('mariadb')
 
 // noinspection SqlResolve
@@ -19,6 +21,13 @@ class GenericRepository {
         }
     }
 
+    static async Query(sqlCommand, values) {
+        try {
+            return await GenericRepository.pool.query(sqlCommand, values)
+        } catch (DbError) {
+            throw DbError
+        }
+    }
     static getConnection() {
         return GenericRepository.pool.getConnection()
     }

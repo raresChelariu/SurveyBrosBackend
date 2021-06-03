@@ -50,19 +50,7 @@ class Account {
         const { pass, ...userWithoutPassword } = user;
         return userWithoutPassword;
     }
-    static RequestSchemas = {
-        UserRegister: [
-            check('email').isEmail(),
-            check('pass').isLength({min: 3})
-        ],
 
-        UserAuthenticate: [
-            check('email').isEmail().isLength({min: 5, max : 128}),
-            check('pass').isLength({min: 5, max : 256}),
-            check('first_name').isLength({min: 3, max : 128}),
-            check('last_name').isLength({min: 3, max : 64})
-        ]
-    }
 
 
 }

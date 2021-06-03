@@ -1,4 +1,5 @@
 const tableNames = {
-    Account : 'account'
+    Account : 'account',
+    Survey : 'survey'
 }
 module.exports = tableNames
